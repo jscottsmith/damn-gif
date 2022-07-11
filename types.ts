@@ -4,7 +4,7 @@ export type ImageCollection = DataEntity[];
 // NOTE: types below were generated based on the API response
 
 export interface GiphyByIdsResponse {
-  data?: (DataEntity)[] | null;
+  data?: DataEntity[] | null;
   pagination: Pagination;
   meta: Meta;
 }
@@ -55,7 +55,7 @@ export interface Images {
   fixed_width_small_still: FixedWidthStillOrPreviewGifOrDownsizedOrDownsizedStillOrDownsizedMediumOrDownsizedLargeOrPreviewWebpOrOriginalStillOrFixedHeightSmallStillOrFixedWidthSmallStillOrFixedHeightStill;
   fixed_height_still: FixedWidthStillOrPreviewGifOrDownsizedOrDownsizedStillOrDownsizedMediumOrDownsizedLargeOrPreviewWebpOrOriginalStillOrFixedHeightSmallStillOrFixedWidthSmallStillOrFixedHeightStill;
   fixed_height: FixedHeightSmallOrFixedWidthOrFixedWidthSmallOrFixedHeight;
-  480w_still: 480wStill;
+  I480w_still: I480wStill;
   hd?: PreviewOrOriginalMp4OrDownsizedSmallOrHd1 | null;
 }
 export interface FixedWidthStillOrPreviewGifOrDownsizedOrDownsizedStillOrDownsizedMediumOrDownsizedLargeOrPreviewWebpOrOriginalStillOrFixedHeightSmallStillOrFixedWidthSmallStillOrFixedHeightStill {
@@ -104,7 +104,7 @@ export interface Looping {
   mp4: string;
   mp4_size: string;
 }
-export interface 480wStill {
+export interface I480wStill {
   url: string;
   width: string;
   height: string;
