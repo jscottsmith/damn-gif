@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest --passWithNoTests --config ./jest.config.js"
+    "test": "jest --passWithNoTests --config ./jest.config.js",
+    "prettier": "prettier --write ."
   },
   "dependencies": {
     "next": "12.2.1",
@@ -28,6 +29,8 @@
     "jest": "^28.1.2",
     "jest-environment-jsdom": "^28.1.2",
     "postcss": "^8.4.14",
+    "prettier": "2.7.1",
+    "prettier-plugin-tailwindcss": "^0.1.12",
     "tailwindcss": "^3.1.5",
     "typescript": "^4.7.4"
   }
