@@ -1,14 +1,21 @@
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useGalleryContext } from "../../components/gallery-context-provider/index";
 import { useCycleIndex } from "../../hooks/use-cycle-index";
 import { Image } from "./components/image";
-import { DraggableSlide } from "./components/draggable-slide";
+import { Directions, DraggableSlide } from "./components/draggable-slide";
 import { FooterNav } from "./components/footer-nav";
 
 export function Gallery() {
   const images = useGalleryContext();
+  const [currentDirection, setDirection] = useState<Directions>();
   const indexController = useCycleIndex(images.length);
   const currentImage = images[indexController.index];
+
+  const handleDecisionComplete = () => {
+    indexController.next();
+    setDirection(undefined);
+  };
 
   return (
     <section className="select-none">
@@ -29,8 +36,12 @@ export function Gallery() {
             exit={{ opacity: 0, scale: 1.25, position: "absolute" }}
           >
             <DraggableSlide
-              onThrowLeftComplete={() => indexController.next()}
-              onThrowRightComplete={() => indexController.next()}
+              onDragLeft={() => setDirection(Directions.LEFT)}
+              onDragRight={() => setDirection(Directions.RIGHT)}
+              onNoThrow={() => setDirection(undefined)}
+              onThrowLeftComplete={handleDecisionComplete}
+              onThrowRightComplete={handleDecisionComplete}
+              minXDragDistance={150}
             >
               <Image
                 src={currentImage.images.original.url}
@@ -42,7 +53,10 @@ export function Gallery() {
           </motion.div>
         </AnimatePresence>
       </div>
-      <FooterNav isTrashed={false} isLiked={false} />
+      <FooterNav
+        isTrashed={currentDirection === Directions.LEFT}
+        isLiked={currentDirection === Directions.RIGHT}
+      />
     </section>
   );
 }
