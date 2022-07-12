@@ -18,7 +18,7 @@ export function FooterNav(props: { isLiked: boolean; isTrashed: boolean }) {
       <div
         className={clsx(
           "mx-auto flex items-center justify-between",
-          "bg-gray-200 bg-opacity-20 p-2 text-gray-900 backdrop-blur-lg",
+          "bg-gray-100 bg-opacity-40 p-2 text-gray-900 backdrop-blur-lg",
           "md:max-w-lg md:rounded-full md:p-4"
         )}
       >

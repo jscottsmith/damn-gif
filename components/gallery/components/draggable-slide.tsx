@@ -11,11 +11,9 @@ export type Direction = Directions.LEFT | Directions.RIGHT;
 
 export function DraggableSlide(
   props: React.PropsWithChildren<{
-    onDragLeft?: () => unknown;
-    onDragRight?: () => unknown;
-    onThrowLeftComplete?: () => unknown;
-    onThrowRightComplete?: () => unknown;
-    onNoThrow?: () => unknown;
+    onDecidedDrag: (direction: Direction) => unknown;
+    onThrowBegin: (direction: Direction) => unknown;
+    onNoThrow: () => unknown;
     minXDragDistance: number;
   }>
 ) {
@@ -39,20 +37,21 @@ export function DraggableSlide(
     setDirectionBasedOnX();
     const velocity = xSmooth.getVelocity();
 
-    // NOTE: gets the distance to throw if we meet the min threshold
-    const throwDistance = () => {
-      const containerWidth = window.innerWidth;
-      const childWidth = constraintsRef.current
-        ? constraintsRef.current.getBoundingClientRect().width
-        : 0;
+    if (Math.abs(velocity) > min && direction) {
+      // NOTE: gets the distance to throw if we meet the min threshold
+      const throwDistance = () => {
+        const containerWidth = window.innerWidth;
+        const childWidth = constraintsRef.current
+          ? constraintsRef.current.getBoundingClientRect().width
+          : 0;
 
-      return direction === Directions.LEFT
-        ? -containerWidth / 2 - childWidth
-        : containerWidth / 2 + childWidth;
-    };
+        return direction === Directions.LEFT
+          ? -containerWidth / 2 - childWidth
+          : containerWidth / 2 + childWidth;
+      };
 
-    if (Math.abs(velocity) > min) {
       setConstrained(false);
+      props.onThrowBegin(direction);
       controls.start({
         x: throwDistance(),
         y: y.get(),
@@ -61,17 +60,7 @@ export function DraggableSlide(
     } else {
       // reset direction
       setDirection(undefined);
-      props.onNoThrow && props.onNoThrow();
-    }
-  };
-
-  const onAnimationComplete = () => {
-    if (constrained) return;
-    if (direction === Directions.LEFT) {
-      props.onThrowLeftComplete && props.onThrowLeftComplete();
-    }
-    if (direction === Directions.RIGHT) {
-      props.onThrowRightComplete && props.onThrowRightComplete();
+      props.onNoThrow();
     }
   };
 
@@ -80,14 +69,17 @@ export function DraggableSlide(
     if (Math.abs(x) > props.minXDragDistance) {
       if (x < 0 && direction !== Directions.LEFT) {
         setDirectionBasedOnX();
-        props.onDragLeft && props.onDragLeft();
+        props.onDecidedDrag(Directions.LEFT);
       }
       if (x > 0 && direction !== Directions.RIGHT) {
         setDirectionBasedOnX();
-        props.onDragRight && props.onDragRight();
+        props.onDecidedDrag(Directions.RIGHT);
       }
+    } else {
+      setDirection(undefined);
+      props.onNoThrow();
     }
-  }, 100);
+  }, 50);
 
   return (
     <motion.div
@@ -98,13 +90,12 @@ export function DraggableSlide(
       dragElastic={2}
       dragConstraints={constrained && { left: 0, right: 0, top: 0, bottom: 0 }}
       animate={controls}
-      whileDrag={{
-        backgroundColor: "#000",
+      whileTap={{
+        scale: 1.025,
       }}
       style={{ x, y }}
       onDrag={onDrag}
       onDragEnd={() => throwEnd(300)}
-      onAnimationComplete={onAnimationComplete}
     >
       {props.children}
     </motion.div>

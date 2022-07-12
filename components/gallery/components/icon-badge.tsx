@@ -19,6 +19,7 @@ export function IconBadge(
       })}
     >
       <motion.span
+        initial={{ scale: 0 }}
         animate={{
           scale: props.isActive ? 1 : 0,
         }}

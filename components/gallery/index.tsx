@@ -5,16 +5,23 @@ import { useCycleIndex } from "../../hooks/use-cycle-index";
 import { Image } from "./components/image";
 import { Directions, DraggableSlide } from "./components/draggable-slide";
 import { FooterNav } from "./components/footer-nav";
+import { ActionIndicator } from "./components/action-indicator";
 
 export function Gallery() {
   const images = useGalleryContext();
-  const [currentDirection, setDirection] = useState<Directions>();
   const indexController = useCycleIndex(images.length);
+  const [currentDirection, setCurrentDirection] = useState<Directions>();
+  const [decidedDirection, setDecidedDirection] = useState<Directions>();
   const currentImage = images[indexController.index];
+
+  const resetDirections = () => {
+    setCurrentDirection(undefined);
+    setDecidedDirection(undefined);
+  };
 
   const handleDecisionComplete = () => {
     indexController.next();
-    setDirection(undefined);
+    resetDirections();
   };
 
   return (
@@ -36,12 +43,16 @@ export function Gallery() {
             exit={{ opacity: 0, scale: 1.25, position: "absolute" }}
           >
             <DraggableSlide
-              onDragLeft={() => setDirection(Directions.LEFT)}
-              onDragRight={() => setDirection(Directions.RIGHT)}
-              onNoThrow={() => setDirection(undefined)}
-              onThrowLeftComplete={handleDecisionComplete}
-              onThrowRightComplete={handleDecisionComplete}
-              minXDragDistance={150}
+              onNoThrow={() => setCurrentDirection(undefined)}
+              onDecidedDrag={(direction) => {
+                // console.log("decided drag", direction);
+                setCurrentDirection(direction);
+              }}
+              onThrowBegin={(direction) => {
+                // console.log("throw begin", direction);
+                setDecidedDirection(direction);
+              }}
+              minXDragDistance={50}
             >
               <Image
                 src={currentImage.images.original.url}
@@ -53,6 +64,14 @@ export function Gallery() {
           </motion.div>
         </AnimatePresence>
       </div>
+      <AnimatePresence>
+        {decidedDirection && (
+          <ActionIndicator
+            onComplete={handleDecisionComplete}
+            direction={decidedDirection}
+          />
+        )}
+      </AnimatePresence>
       <FooterNav
         isTrashed={currentDirection === Directions.LEFT}
         isLiked={currentDirection === Directions.RIGHT}
