@@ -52,6 +52,7 @@ export function DraggableSlide(
   };
 
   const onAnimationComplete = () => {
+    if (constrained) return;
     if (direction === "left") {
       props.onThrowLeftComplete && props.onThrowLeftComplete();
     }
@@ -73,7 +74,7 @@ export function DraggableSlide(
         backgroundColor: "#000",
       }}
       style={{ x, y }}
-      onDragEnd={() => throwEnd(200)}
+      onDragEnd={() => throwEnd(300)}
       onAnimationComplete={onAnimationComplete}
     >
       {props.children}
