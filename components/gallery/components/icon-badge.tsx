@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import { motion } from "framer-motion";
 import { PropsWithChildren } from "react";
 
 export function IconBadge(
@@ -13,12 +14,17 @@ export function IconBadge(
 
   return (
     <span
-      className={clsx("inline-block rounded-full p-2 md:p-3", {
-        [activeBgColor]: props.isActive,
+      className={clsx("relative inline-block rounded-full p-2 md:p-3", {
         [activeIconColor]: props.isActive,
       })}
     >
-      {props.children}
+      <motion.span
+        animate={{
+          scale: props.isActive ? 1 : 0,
+        }}
+        className={clsx("absolute inset-0 rounded-full", activeBgColor)}
+      />
+      <span className="relative z-10">{props.children}</span>
     </span>
   );
 }
