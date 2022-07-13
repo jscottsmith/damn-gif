@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react";
 import { PropsWithChildren } from "react";
-import { ImageCollection } from "../../types";
+import { ImageCollection } from "../../../../types";
 import { GalleryContextProvider, useGalleryContext } from "./index";
 
 const testContext = [{ id: "foo" }] as ImageCollection;

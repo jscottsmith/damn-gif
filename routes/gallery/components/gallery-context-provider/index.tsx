@@ -1,5 +1,5 @@
 import { createContext, PropsWithChildren, useContext } from "react";
-import { ImageCollection } from "../../types";
+import { ImageCollection } from "../../../../types";
 
 export const GalleryContext = createContext<ImageCollection>([]);
 

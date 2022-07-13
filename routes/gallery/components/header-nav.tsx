@@ -1,7 +1,7 @@
 import { ArrowLeftIcon, ExternalLinkIcon } from "@heroicons/react/outline";
 import clsx from "clsx";
+import Link from "next/link";
 import { Dots } from "./dots";
-import { IconBadge } from "./icon-badge";
 import { IconButton } from "./icon-button";
 
 export function HeaderNav(props: {
@@ -21,9 +21,13 @@ export function HeaderNav(props: {
       )}
     >
       <nav>
-        <IconButton>
-          <ArrowLeftIcon className="w-6" />
-        </IconButton>
+        <Link href="/">
+          <a>
+            <IconButton>
+              <ArrowLeftIcon className="w-6" />
+            </IconButton>
+          </a>
+        </Link>
       </nav>
       <div className="flex grow items-center justify-between">
         <div>
@@ -35,15 +39,11 @@ export function HeaderNav(props: {
         <Dots current={props.current} length={props.length} />
       </div>
       <div>
-        <IconButton>
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href={props.externalLink}
-          >
+        <a target="_blank" rel="noopener noreferrer" href={props.externalLink}>
+          <IconButton>
             <ExternalLinkIcon className="w-6" />
-          </a>
-        </IconButton>
+          </IconButton>
+        </a>
       </div>
     </header>
   );

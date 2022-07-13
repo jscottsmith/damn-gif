@@ -1,5 +1,9 @@
-import { Gallery } from "../components/gallery";
+import Link from "next/link";
 
 export function HomeRoute() {
-  return <Gallery />;
+  return (
+    <Link href="/gallery">
+      <a>Gallery</a>
+    </Link>
+  );
 }

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useGalleryContext } from "../../components/gallery-context-provider/index";
+import { useGalleryContext } from "./components/gallery-context-provider/index";
 import { useCycleIndex } from "../../hooks/use-cycle-index";
 import { Image } from "./components/image";
 import { Directions, DraggableSlide } from "./components/draggable-slide";
@@ -8,7 +8,7 @@ import { FooterNav } from "./components/footer-nav";
 import { ActionIndicator } from "./components/action-indicator";
 import { HeaderNav } from "./components/header-nav";
 
-export function Gallery() {
+export function GalleryRoute() {
   const images = useGalleryContext();
   const indexController = useCycleIndex(images.length);
   const [currentDirection, setCurrentDirection] = useState<Directions>();
