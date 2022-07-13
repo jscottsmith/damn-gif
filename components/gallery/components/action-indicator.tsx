@@ -18,20 +18,19 @@ export function ActionIndicator(
       <motion.div
         onAnimationComplete={props.onComplete}
         initial={{ scale: 0 }}
-        animate={{
-          scale: 2.5,
-        }}
-        transition={{
-          type: "spring",
-          damping: 50,
-          stiffness: 200,
-        }}
+        animate={{ scale: 2.5 }}
+        transition={{ type: "spring", damping: 50, stiffness: 200 }}
         className={clsx(
           "absolute aspect-square w-full rounded-full",
           props.direction === Directions.LEFT ? "bg-rose-400" : "bg-violet-400"
         )}
       />
-      <div className="relative z-10 text-white">
+      <motion.div
+        className="relative z-10 text-white"
+        initial={{ scale: 3, opacity: 0 }}
+        transition={{ type: "spring", bounce: 0.5 }}
+        animate={{ scale: 1, opacity: 1 }}
+      >
         {props.direction === Directions.LEFT ? (
           <div className="flex">
             <TrashIcon className="w-16 md:w-20" />
@@ -41,7 +40,7 @@ export function ActionIndicator(
             <HeartIcon className="w-16 md:w-20" />
           </div>
         )}
-      </div>
+      </motion.div>
     </motion.div>
   );
 }
