@@ -6,6 +6,7 @@ import { Image } from "./components/image";
 import { Directions, DraggableSlide } from "./components/draggable-slide";
 import { FooterNav } from "./components/footer-nav";
 import { ActionIndicator } from "./components/action-indicator";
+import { HeaderNav } from "./components/header-nav";
 
 export function Gallery() {
   const images = useGalleryContext();
@@ -26,7 +27,13 @@ export function Gallery() {
 
   return (
     <section className="select-none">
-      <div className="relative flex h-screen items-center justify-center overflow-hidden p-2">
+      <HeaderNav
+        title={currentImage.title || currentImage.username}
+        externalLink={currentImage.url}
+        current={indexController.index}
+        length={images.length}
+      />
+      <div className="absolute inset-0 flex h-screen items-center justify-center overflow-hidden p-2">
         <AnimatePresence>
           <motion.div
             key={currentImage.id}

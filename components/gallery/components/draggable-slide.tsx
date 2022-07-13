@@ -85,9 +85,9 @@ export function DraggableSlide(
     <motion.div
       // @ts-expect-error
       ref={constraintsRef}
-      className="cursor-grab"
+      className="cursor-grab active:cursor-grabbing"
       drag
-      dragElastic={2}
+      dragElastic={1.5}
       dragConstraints={constrained && { left: 0, right: 0, top: 0, bottom: 0 }}
       animate={controls}
       whileTap={{
