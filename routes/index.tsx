@@ -24,7 +24,7 @@ export function HomeRoute() {
             Here&apos;s a gallery of GIFs I created a long time ago that are
             hosted on{" "}
             <a
-              className="text-violet-700 hover:text-violet-900"
+              className="font-bold text-blue-500 hover:text-blue-700"
               href="https://giphy.com/channel/damntv"
               target="_blank"
               rel="noopener noreferrer"
@@ -33,13 +33,15 @@ export function HomeRoute() {
             </a>
           </p>
           <p className="mb-4">For each image:</p>
-          <p>
-            If you love it —{" "}
-            <strong className="font-bold">drag it to the right.</strong>
+          <p className="font-bold">
+            <span className="text-violet-500">If you love it — </span>
+            <span>drag it to the right.</span>
           </p>
-          <p className="mb-4">
-            If you think it&apos;s trash —{" "}
-            <strong className="font-bold">drag it to the left.</strong>
+          <p className="mb-4 font-bold">
+            <span className="text-rose-500">
+              If you think it&apos;s trash —{" "}
+            </span>
+            <span>drag it to the left.</span>
           </p>
 
           <p>Ok, have fun!</p>
