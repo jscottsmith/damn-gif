@@ -64,7 +64,6 @@ export function GalleryRoute() {
               <Image
                 src={currentImage.images.original.url}
                 smallImageSrc={currentImage.images.fixed_width_small_still.url}
-                draggable={false}
                 alt={currentImage.title}
               />
             </DraggableSlide>

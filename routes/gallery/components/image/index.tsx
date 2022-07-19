@@ -16,13 +16,18 @@ export function Image(props: ImageProps) {
     <div className="relative overflow-hidden bg-gray-100">
       {/* eslint-disable-next-line */}
       <img
+        onDragStart={(e) => {
+          e.preventDefault();
+        }}
         className={clsx(isLoaded ? "opacity-100" : "opacity-0", className)}
         onLoad={onLoad}
         {...rest}
       />
       {/* eslint-disable-next-line */}
       <img
-        draggable={false}
+        onDragStart={(e) => {
+          e.preventDefault();
+        }}
         className={clsx(
           "absolute inset-0 z-10 w-full max-w-none scale-125 blur-xl transition-all duration-1000",
           isLoaded ? "opacity-0" : "opacity-100"
